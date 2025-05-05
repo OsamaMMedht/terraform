@@ -5,6 +5,7 @@ module "webservers" {
   instance_type = var.instance_type
   name          = "webserver"
   environment   = var.environment
+  key_name      = var.key_name
 }
 
 module "dbserver" {
@@ -14,4 +15,5 @@ module "dbserver" {
   instance_type = var.instance_type
   name          = "dbserver"
   environment   = var.environment
+  key_name      = var.key_name
 }
