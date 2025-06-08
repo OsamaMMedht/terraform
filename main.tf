@@ -1,5 +1,5 @@
 module "webservers" {
-  source = "./modules/ec2"
+  source = "./modules/dev/ec2"
 
   ami           = var.ami
   instance_type = var.instance_type
@@ -9,7 +9,7 @@ module "webservers" {
 }
 
 module "dbserver" {
-  source = "./modules/ec2"
+  source = "./modules/dev/ec2"
 
   ami           = var.ami
   instance_type = var.instance_type
