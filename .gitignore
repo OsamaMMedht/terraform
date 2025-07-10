@@ -1,4 +1,4 @@
 # Ignore transient lock info files created by terraform apply
-.terraform.tfstate.lock.info
+.terraform.lock.hcl
 .terraform
 .terraform.tfstate
