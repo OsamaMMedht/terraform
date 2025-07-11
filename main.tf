@@ -11,7 +11,7 @@ module "main_vpc" {
 
 module "public_bucket" {
   source   = "./modules/s3"
-  bucket   = "public_bucket-testos"
+  bucket   = "public-bucket-testos"
   tag_name = "public_bucket"
   tag_env  = "prod"
 }
@@ -19,5 +19,13 @@ module "public_bucket" {
 module "new_iam_user" {
   source   = "./modules/iam"
   iam_user = "test-user"
-
+  policy_arn = module.readonly_policy.policy_arn
 }
+
+module "readonly_policy" {
+  source             = "./modules/iam_policy"
+  policy_name        = "AllowS3EC2ReadOnly"
+  policy_description = "Read-only access to EC2 and S3"
+  policy_document    = data.aws_iam_policy_document.s3_ec2_readonly.json
+}
+
