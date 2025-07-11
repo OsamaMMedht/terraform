@@ -22,3 +22,13 @@ output "iam_username" {
 output "iam_policy" {
   value = module.readonly_policy.policy_arn  
 }
+
+output "access_key" {
+  value = module.new_iam_user.access_key_id
+  
+}
+
+output "access_token" {
+  value = module.new_iam_user.secret_access_key  
+  sensitive = true
+}
