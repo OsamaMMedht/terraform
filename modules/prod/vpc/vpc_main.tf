@@ -1,0 +1,63 @@
+resource "aws_vpc" "my_vpc" {
+  cidr_block           = var.vpc_cidr
+  enable_dns_support   = var.enable_dns
+  enable_dns_hostnames = var.enable_dns
+
+  tags = {
+    Name = var.vpc_name
+  }
+}
+
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.my_vpc.id
+
+  tags = {
+    Name = "${var.vpc_name}-igw"
+  }
+}
+
+# Public Subnets
+resource "aws_subnet" "public" {
+  count                   = 2
+  vpc_id                  = aws_vpc.my_vpc.id
+  cidr_block              = var.public_subnets_cidr[count.index]
+  availability_zone       = var.availability_zones[count.index]
+  map_public_ip_on_launch = var.enable_public_ip
+
+  tags = {
+    Name = "${var.vpc_name}-public-${count.index + 1}"
+  }
+}
+
+# Private Subnets
+resource "aws_subnet" "private" {
+  count             = 2
+  vpc_id            = aws_vpc.my_vpc.id
+  cidr_block        = var.private_subnets_cidr[count.index]
+  availability_zone = var.availability_zones[count.index]
+
+  tags = {
+    Name = "${var.vpc_name}-private-${count.index + 1}"
+  }
+}
+
+# Route table for public subnets
+resource "aws_route_table" "public" {
+  vpc_id = aws_vpc.my_vpc.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.igw.id
+  }
+
+  tags = {
+    Name = "${var.vpc_name}-public-rt"
+  }
+}
+
+# Associate route table with public subnets
+resource "aws_route_table_association" "public" {
+  count          = 2
+  subnet_id      = aws_subnet.public[count.index].id
+  route_table_id = aws_route_table.public.id
+}
