@@ -26,14 +26,23 @@ This project is designed for scalable, repeatable, and secure infrastructure dep
 
 ```bash
 .
-├── modules/
+├── modules/                    # reusable infrastructure blocks
+│   ├── vpc/
 │   ├── ec2/
 │   ├── iam/
-│   ├── iam_policy/
-│   ├── security_group/
-│   └── vpc/
-├── main.tf
-├── provider.tf
-├── backend.tf
-├── variables.tf
-└── outputs.tf
+│   └── iam_policy/
+                      # isolated environments (dev, prod, etc.)
+│ ── development/
+│   │   ├── main.tf
+│   │   ├── variables.tf
+│   │   ├── outputs.tf
+│   │   ├── backend.tf
+│   │   └── provider.tf
+│ ── production/
+│       ├── main.tf
+│       ├── variables.tf
+│       ├── outputs.tf
+│       ├── backend.tf
+│       └── provider.tf
+
+└── README.md
