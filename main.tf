@@ -1,5 +1,5 @@
 module "main_vpc" {
-  source = "./modules/prod/vpc"
+  source               = "./modules/vpc"
   vpc_cidr             = "172.21.0.0/16"
   public_subnets_cidr  = ["172.21.21.0/24", "172.21.22.0/24"]
   private_subnets_cidr = ["172.21.46.0/24", "172.21.47.0/24"]
@@ -10,8 +10,14 @@ module "main_vpc" {
 }
 
 module "public_bucket" {
-    source = "./modules/prod/s3"
-    bucket = "public_bucket-testos"
-    tag_name = "public_bucket"
-    tag_env = "prod"
+  source   = "./modules/s3"
+  bucket   = "public_bucket-testos"
+  tag_name = "public_bucket"
+  tag_env  = "prod"
+}
+
+module "new_iam_user" {
+  source   = "./modules/iam"
+  iam_user = "test-user"
+
 }
