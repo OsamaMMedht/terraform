@@ -65,7 +65,7 @@ resource "aws_route_table_association" "public" {
 resource "aws_security_group" "sc-linux" {
   name        = var.sgname
   description = var.description
-  vpc_id      = "${var.vpc_name}-SC"
+  vpc_id      = aws_vpc.my_vpc.id
 
   ingress {
     description = "SSH"
