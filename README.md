@@ -20,8 +20,6 @@ This project is designed for scalable, repeatable, and secure infrastructure dep
   - Programmatic access (access key + secret)
   - Custom IAM policy (EC2 and S3 read-only)
 - S3 remote backend with state locking (DynamoDB)
-- tfvars support for environment-specific values
-
 ---
 
 ## Directory Structure
@@ -37,6 +35,5 @@ This project is designed for scalable, repeatable, and secure infrastructure dep
 ├── main.tf
 ├── provider.tf
 ├── backend.tf
-├── terraform.tfvars
 ├── variables.tf
 └── outputs.tf
