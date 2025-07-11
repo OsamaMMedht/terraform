@@ -10,6 +10,6 @@ output "private_subnets_id" {
   value = module.main_vpc.private_subnets_id
 }
 
-output "s3_name" {
+output "s3_id" {
   value = module.public_bucket.s3
 }
