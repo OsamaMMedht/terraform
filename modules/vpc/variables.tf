@@ -40,3 +40,23 @@ variable "enable_dns_support" {
   type        = bool
   default     = true
 }
+
+variable "sgname" {
+  type = string
+}
+
+variable "description" {
+  type    = string
+  default = "Security group managed by Terraform"
+}
+
+
+variable "allowed_ssh_cidrs" {
+  type    = list(string)
+  default = ["0.0.0.0/0"]
+}
+
+variable "allowed_http_cidrs" {
+  type    = list(string)
+  default = ["0.0.0.0/0"]
+}

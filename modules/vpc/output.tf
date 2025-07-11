@@ -12,3 +12,7 @@ output "private_subnets_id" {
   value       = aws_subnet.private[*].id
   description = "The ID of the VPC"
 }
+
+output "sgid" {
+  value = aws_security_group.sc-linux.id
+}

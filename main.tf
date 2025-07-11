@@ -7,6 +7,7 @@ module "main_vpc" {
   enable_public_ip     = "true"
   enable_dns           = "true"
   vpc_name             = "prod-vpc"
+  sgname = "allowssh"
 }
 
 module "public_bucket" {
@@ -27,5 +28,14 @@ module "readonly_policy" {
   policy_name        = "AllowS3EC2ReadOnly"
   policy_description = "Read-only access to EC2 and S3"
   policy_document    = data.aws_iam_policy_document.s3_ec2_readonly.json
+}
+
+module "ec2" {
+  source              = "./modules/ec2"
+  subnet_id           = module.main_vpc.public_subnet_id[0]
+  security_group_id   = module.main_vpc.sgid
+  key_name            = "my-key"
+  associate_public_ip = true
+  instance_name       = "test-instance"
 }
 
