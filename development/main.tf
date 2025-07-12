@@ -39,3 +39,21 @@ module "ec2" {
   instance_name       = "test-instance-dev"
 }
 
+module "ec2-bastion" {
+  source              = "../modules/ec2"
+  subnet_id           = module.main_vpc.private_subnets_id[0]
+  security_group_id   = module.main_vpc.sgid
+  key_name            = "my-key"
+  associate_public_ip = false
+  instance_name       = "bastion-dev"
+}
+
+module "rds" {
+  source              = "../modules/rds"
+  name                = "dev-postgres"
+  db_name             = "db"
+  subnet_ids          = module.main_vpc.private_subnets_id
+  security_group_ids  = [module.main_vpc.sgid-rds]
+  publicly_accessible = false
+  multi_az            = false
+}

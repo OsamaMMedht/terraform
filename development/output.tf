@@ -13,6 +13,11 @@ output "private_subnets_id" {
 output "sg" {
   value = module.main_vpc.sgid
 }
+
+output "sgrds" {
+  value = module.main_vpc.sgid-rds
+}
+
 output "s3_bucketname" {
   value = module.public_bucket.s3
 }
@@ -34,4 +39,12 @@ output "access_key" {
 output "access_token" {
   value = module.new_iam_user.secret_access_key  
   sensitive = true
+}
+
+output "db_endpoint" {
+  value = module.rds.endpoint
+}
+
+output "db_arn" {
+  value = module.rds.arn
 }

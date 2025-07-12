@@ -60,3 +60,8 @@ variable "allowed_http_cidrs" {
   type    = list(string)
   default = ["0.0.0.0/0"]
 }
+
+variable "db_allowed_cidrs" {
+  type    = list(string)
+  default = ["0.0.0.0/0"]
+}
