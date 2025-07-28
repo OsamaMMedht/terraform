@@ -1,0 +1,23 @@
+name: tfsec scan
+on:
+  push:
+jobs:
+  tfsec:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up tfsec
+        uses: aquasecurity/tfsec-action@v1.0.0
+
+      - name: Run tfsec and save results
+        run: |
+          mkdir -p tfsec-report
+          tfsec . --format sarif > tfsec-report/tfsec.sarif
+
+      - name: Upload tfsec report
+        uses: actions/upload-artifact@v4
+        with:
+          name: tfsec-report
+          path: tfsec-report
