@@ -14,7 +14,7 @@ jobs:
       - name: Set up tfsec
         uses: aquasecurity/tfsec-sarif-action@v0.1.4
         with:
-          working_directory: ./tfsec-report
+          working_directory: tfsec-report
 
       - name: Upload tfsec report
         if: always()
