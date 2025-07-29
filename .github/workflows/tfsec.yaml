@@ -7,16 +7,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Set up tfsec
-        uses: aquasecurity/tfsec-action@v1.0.3
-        with:
-          format: sarif
-        
+      
       - name: Run tfsec and save results
-        run: |
-          mkdir -p tfsec-report
-          tfsec . --format sarif > tfsec-report/tfsec.sarif
+        run: mkdir -p tfsec-report
+        
+      - name: Set up tfsec
+        uses: aquasecurity/tfsec-sarif-action@v0.1.4
+        with:
+          working_directory: ./tfsec-report
 
       - name: Upload tfsec report
         if: always()
